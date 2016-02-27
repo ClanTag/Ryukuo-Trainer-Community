@@ -37,7 +37,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>ryukuo-trainer.ico</ApplicationIcon>
+    <ApplicationIcon>ryukuo-trainer-community.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -134,9 +134,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ryukuo-trainer.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icons\Aiyou-Address-Book-icon.png" />
     <Resource Include="Icons\analog-icon.png" />
     <Resource Include="Icons\appstore-icon.png" />
@@ -197,6 +194,9 @@
   <ItemGroup>
     <Resource Include="Icons\reaper.png" />
     <Resource Include="Icons\youtube.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ryukuo-trainer-community.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
