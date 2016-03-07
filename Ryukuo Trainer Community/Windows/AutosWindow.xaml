@@ -16,6 +16,16 @@
         <TextBox x:Name="autoAttackTextBox" Height="23" Margin="115,8,0,0" TextWrapping="Wrap" Text="250" VerticalAlignment="Top" Width="120" Background="Black" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
         <CheckBox x:Name="autoLootCheckBox" Content="Auto Loot" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="autoLootTextBox" Height="23" Margin="115,38,0,0" TextWrapping="Wrap" Text="50" VerticalAlignment="Top" Width="120" Background="Black" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
-
+        <CheckBox x:Name="autoSkillOneCheckBox" Content="Skill 1" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="autoSkillOneTextBox" Height="23" Margin="115,71,0,0" TextWrapping="Wrap" Text="170000" VerticalAlignment="Top" Width="120" Background="Black" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
+        <CheckBox x:Name="autoSkillTwoCheckBox" Content="Skill 2" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="autoSkillTwoTextBox" Height="23" Margin="115,101,0,0" TextWrapping="Wrap" Text="170000" VerticalAlignment="Top" Width="120" Background="Black" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
+        <CheckBox x:Name="autoSkillThreeCheckBox" Content="Skill 3" HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="autoSkillThreeTextBox" Height="23" Margin="115,131,0,0" TextWrapping="Wrap" Text="170000" VerticalAlignment="Top" Width="120" Background="Black" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
+        <CheckBox x:Name="autoSkillFourCheckBox" Content="Skill 4" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="autoSkillFourTextBox" Height="23" Margin="115,161,0,0" TextWrapping="Wrap" Text="170000" VerticalAlignment="Top" Width="120" Background="Black" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
+        <CheckBox x:Name="autoSkillFiveCheckBox" Content="Skill 5" HorizontalAlignment="Left" Margin="10,193,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="autoSkillFiveTextBox" Height="23" Margin="115,191,0,0" TextWrapping="Wrap" Text="170000" VerticalAlignment="Top" Width="120" Background="Black" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
+        
     </Grid>
 </Window>

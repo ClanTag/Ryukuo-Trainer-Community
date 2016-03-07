@@ -70,6 +70,20 @@ namespace Ryukuo_Trainer_Community.Windows
         private bool bAutoLoot = false;
         private int uAutoLoot = 50;
 
+		private bool bAutoSkillOne = false;
+        private int uAutoSkillOne = 170000;
+
+        private bool bAutoSkillTwo = false;
+        private int uAutoSkillTwo = 170000;
+
+        private bool bAutoSkillThree = false;
+        private int uAutoSkillThree = 170000;
+
+        private bool bAutoSkillFour = false;
+        private int uAutoSkillFour = 170000;
+
+        private bool bAutoSkillFive = false;
+        private int uAutoSkillFive = 170000;
 
 
         private void automaticAttack()
@@ -89,8 +103,51 @@ namespace Ryukuo_Trainer_Community.Windows
                 Thread.Sleep(uAutoLoot);
             }
         }
+		
+		  private void automaticSkillOne()
+        {
+            while (bAutoSkillOne)
+            {
+                OnKey(0x31); //VK_one
+                Thread.Sleep(uAutoSkillOne);
+            }
+        }
 
+        private void automaticSkillTwo()
+        {
+            while (bAutoSkillTwo)
+            {
+                OnKey(0x32); //VK_two
+                Thread.Sleep(uAutoSkillTwo);
+            }
+        }
 
+        private void automaticSkillThree()
+        {
+            while (bAutoSkillThree)
+            {
+                OnKey(0x33); //VK_three
+                Thread.Sleep(uAutoSkillThree);
+            }
+        }
+
+        private void automaticSkillFour()
+        {
+            while (bAutoSkillFour)
+            {
+                OnKey(0x34); //VK_four
+                Thread.Sleep(uAutoSkillFour);
+            }
+        }
+
+        private void automaticSkillFive()
+        {
+            while (bAutoSkillFive)
+            {
+                OnKey(0x35); //VK_five
+                Thread.Sleep(uAutoSkillFive);
+            }
+        }
         public void EnableHacks()
         {
             if (autoAttackCheckBox.IsChecked == true)
@@ -109,6 +166,46 @@ namespace Ryukuo_Trainer_Community.Windows
 
                 new Thread(automaticLoot).Start();
             }
+			
+			 if (autoSkillOneCheckBox.IsChecked == true)
+            {
+                uAutoSkillOne = Int32.Parse(autoSkillOneTextBox.Text);
+                bAutoSkillOne = true;
+
+                new Thread(automaticSkillOne).Start();
+            }
+
+            if (autoSkillTwoCheckBox.IsChecked == true)
+            {
+                uAutoSkillTwo = Int32.Parse(autoSkillTwoTextBox.Text);
+                bAutoSkillTwo = true;
+
+                new Thread(automaticSkillTwo).Start();
+            }
+
+            if (autoSkillThreeCheckBox.IsChecked == true)
+            {
+                uAutoSkillThree = Int32.Parse(autoSkillThreeTextBox.Text);
+                bAutoSkillThree = true;
+
+                new Thread(automaticSkillThree).Start();
+            }
+
+            if (autoSkillFourCheckBox.IsChecked == true)
+            {
+                uAutoSkillFour = Int32.Parse(autoSkillFourTextBox.Text);
+                bAutoSkillFour = true;
+
+                new Thread(automaticSkillFour).Start();
+            }
+
+            if (autoSkillFiveCheckBox.IsChecked == true)
+            {
+                uAutoSkillFive = Int32.Parse(autoSkillFiveTextBox.Text);
+                bAutoSkillFive = true;
+
+                new Thread(automaticSkillFive).Start();
+            }
 
         }
 
@@ -117,6 +214,11 @@ namespace Ryukuo_Trainer_Community.Windows
         {
             bAutoAttack = false;
             bAutoLoot = false;
+            bAutoSkillOne = false;
+            bAutoSkillTwo = false;
+            bAutoSkillThree = false;
+            bAutoSkillFour = false;
+            bAutoSkillFive = false;
         }
 
     }
