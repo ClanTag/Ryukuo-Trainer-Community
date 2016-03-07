@@ -39,6 +39,7 @@ namespace Ryukuo_Trainer_Community
         private AutosWindow autoWindow;
         private MobControlWindow mobcontrolWindow;
         private PerformanceWindow performanceWindow;
+        private CharacterWindow characterWindow;
         public MainWindow()
         {
             InitializeComponent();
@@ -47,6 +48,7 @@ namespace Ryukuo_Trainer_Community
             autoWindow = new AutosWindow(this);
             mobcontrolWindow = new MobControlWindow(this);
             performanceWindow = new PerformanceWindow(this);
+            characterWindow = new CharacterWindow(this);
 
             scripts = new List<Tuple<int, string>>();
             cheatEngine = new CheatEngine();
@@ -70,11 +72,13 @@ namespace Ryukuo_Trainer_Community
         private void EnableInitialScripts()
         {
             EnableScript("viewswears");
+            EnableScript("randomhwid");
             EnableScript("unlimitedattack");
             EnableScript("skipaircheck");
             EnableScript("aircheckattackonrope");
             EnableScript("logoskipper");
             EnableScript("nocrusadercodex");
+			EnableScript("pictype");
         }
 
         private void LoadScripts()
@@ -241,6 +245,24 @@ namespace Ryukuo_Trainer_Community
         private void performanceCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             performanceWindow.DisableHacks();
+        }
+
+
+        private void characterWindowRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            characterWindow.Left = Application.Current.MainWindow.Left - characterWindow.Width;
+            characterWindow.Top = Application.Current.MainWindow.Top +mainWindow.Height -characterWindow.Height;
+            characterWindow.Visibility = (characterWindow.IsVisible) ? Visibility.Hidden : Visibility.Visible;
+        }
+
+        private void characterCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            characterWindow.EnableHacks();
+        }
+
+        private void characterCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            characterWindow.DisableHacks();
         }
 
         private void autosCheckBox_Checked(object sender, RoutedEventArgs e)

@@ -44,6 +44,14 @@
                 </Rectangle>
                 <Label Content="Performance" HorizontalAlignment="Left" Margin="14,160,0,0" VerticalAlignment="Top" Foreground="White"/>
 
+                <CheckBox x:Name="characterCheckBox" HorizontalAlignment="Left" Margin="110,130,0,0" VerticalAlignment="Top" Foreground="White" Background="White" Checked="characterCheckBox_Checked" Unchecked="characterCheckBox_Unchecked"/>
+                <Rectangle x:Name="characterWindowRectangle" HorizontalAlignment="Left" Height="50" Margin="130,110,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="characterWindowRectangle_MouseLeftButtonDown">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="pack://application:,,,/icons/Sousa-Safari-icon.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Label Content="Character" HorizontalAlignment="Left" Margin="125,160,0,0" VerticalAlignment="Top" Foreground="White"/>
+
             </Grid>
         </GroupBox>
         <Rectangle HorizontalAlignment="Left" Height="50" Margin="358,436,0,0" VerticalAlignment="Top" Width="50">
