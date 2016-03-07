@@ -65,12 +65,12 @@ namespace Ryukuo_Trainer_Community.Windows
 
             if (mobSpeedUpCheckBox.IsChecked == true)
             {
-                mainWindow.EnableScript("fastermob");
+                mainWindow.EnableScript("fastermobs");
             }
 
             if (mobFuckupCheckBox.IsChecked == true)
             {
-                mainWindow.EnableScript("crazymob");
+                mainWindow.EnableScript("crazymobs");
             }
 
             if (autoAggroCheckBox.IsChecked == true)
@@ -91,8 +91,8 @@ namespace Ryukuo_Trainer_Community.Windows
         public void DisableHacks()
         {
             mainWindow.DisableScript("nomagnusballs");
-            mainWindow.DisableScript("fastermob");
-            mainWindow.DisableScript("crazymob");
+            mainWindow.DisableScript("fastermobs");
+            mainWindow.DisableScript("crazymobs");
             mainWindow.DisableScript("mobaggro");
             mainWindow.DisableScript("mobdisarm");
             mainWindow.DisableScript("mobfreeze");
