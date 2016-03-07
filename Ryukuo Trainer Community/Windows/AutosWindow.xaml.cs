@@ -13,11 +13,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Interop;
+
 
 namespace Ryukuo_Trainer_Community.Windows
 {
@@ -59,15 +61,18 @@ namespace Ryukuo_Trainer_Community.Windows
         public void OnKey(byte key)
         {
             int hwnd = FindWindow("MapleStoryClass", null);
-            int lParam = (MapVirtualKey(key, 0) << 16) + 1;
+            int lParam = (MapVirtualKey(key, 0) << 16) + 2;
             PostMessage(hwnd, WM_KEYDOWN, key, lParam);
             PostMessage(hwnd, WM_KEYUP, key, lParam);
         }
 
+        private int delay = 150;
         private bool bAutoAttack = false;
+        private bool truAutoAttack = false;
         private int uAutoAttack = 250;
-
+        
         private bool bAutoLoot = false;
+        private bool truLoot = false;
         private int uAutoLoot = 50;
 
 		private bool bAutoSkillOne = false;
@@ -86,6 +91,29 @@ namespace Ryukuo_Trainer_Community.Windows
         private int uAutoSkillFive = 170000;
 
 
+
+        private void verifyAttack()
+        {
+          while (truAutoAttack)
+            {
+                Thread.Yield();
+                new Thread(automaticAttack).Start();
+                Thread.Sleep(6000);
+            }
+
+        }
+
+
+        private void verifyLoot()
+        {
+            while (truLoot)
+            {
+                Thread.Yield();
+                new Thread(automaticLoot).Start();
+                Thread.Sleep(6000);
+            }
+
+        }
         private void automaticAttack()
         {
             while (bAutoAttack)
@@ -108,8 +136,20 @@ namespace Ryukuo_Trainer_Community.Windows
         {
             while (bAutoSkillOne)
             {
+
+                bAutoAttack = false;
+                bAutoLoot = false;
+                Thread.Sleep(1234);
                 OnKey(0x31); //VK_one
-                Thread.Sleep(uAutoSkillOne);
+                Thread.Sleep(delay);
+                OnKey(0x31); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x31); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x31); //VK_one
+                bAutoAttack = true;
+               Thread.Sleep(uAutoSkillOne);
+                
             }
         }
 
@@ -117,7 +157,17 @@ namespace Ryukuo_Trainer_Community.Windows
         {
             while (bAutoSkillTwo)
             {
-                OnKey(0x32); //VK_two
+                bAutoAttack = false;
+                bAutoLoot = false;
+                Thread.Sleep(2234);
+                OnKey(0x32); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x32); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x32); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x32); //VK_one
+                bAutoAttack = true;
                 Thread.Sleep(uAutoSkillTwo);
             }
         }
@@ -126,7 +176,16 @@ namespace Ryukuo_Trainer_Community.Windows
         {
             while (bAutoSkillThree)
             {
-                OnKey(0x33); //VK_three
+                bAutoAttack = false;
+                bAutoLoot = false;
+                Thread.Sleep(3234);
+                OnKey(0x33); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x33); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x33); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x33); //VK_one
                 Thread.Sleep(uAutoSkillThree);
             }
         }
@@ -135,7 +194,17 @@ namespace Ryukuo_Trainer_Community.Windows
         {
             while (bAutoSkillFour)
             {
-                OnKey(0x34); //VK_four
+                bAutoAttack = (false);
+                bAutoLoot = false;
+                Thread.Sleep(4234);
+                OnKey(0x34); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x34); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x34); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x34); //VK_one
+                bAutoAttack = (true);
                 Thread.Sleep(uAutoSkillFour);
             }
         }
@@ -144,68 +213,80 @@ namespace Ryukuo_Trainer_Community.Windows
         {
             while (bAutoSkillFive)
             {
-                OnKey(0x35); //VK_five
+                bAutoAttack = false;
+                bAutoLoot = false;
+                Thread.Sleep(5234);
+                OnKey(0x35); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x35); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x35); //VK_one
+                Thread.Sleep(delay);
+                OnKey(0x35); //VK_one
                 Thread.Sleep(uAutoSkillFive);
             }
         }
         public void EnableHacks()
         {
-            if (autoAttackCheckBox.IsChecked == true)
-            {
-                uAutoAttack = Int32.Parse(autoAttackTextBox.Text);
-                bAutoAttack = true;
 
-                new Thread(automaticAttack).Start();
-            }
+                            
+                if (autoSkillOneCheckBox.IsChecked == true)
+                {
+                    uAutoSkillOne = Int32.Parse(autoSkillOneTextBox.Text);
+                    bAutoSkillOne = true;
+
+                    new Thread(automaticSkillOne).Start();
+                }
+
+                if (autoSkillTwoCheckBox.IsChecked == true)
+                {
+                    uAutoSkillTwo = Int32.Parse(autoSkillTwoTextBox.Text);
+                    bAutoSkillTwo = true;
+
+                    new Thread(automaticSkillTwo).Start();
+                }
+
+                if (autoSkillThreeCheckBox.IsChecked == true)
+                {
+                    uAutoSkillThree = Int32.Parse(autoSkillThreeTextBox.Text);
+                    bAutoSkillThree = true;
+
+                    new Thread(automaticSkillThree).Start();
+                }
+
+                if (autoSkillFourCheckBox.IsChecked == true)
+                {
+                    uAutoSkillFour = Int32.Parse(autoSkillFourTextBox.Text);
+                    bAutoSkillFour = true;
+
+                    new Thread(automaticSkillFour).Start();
+                }
+
+                if (autoSkillFiveCheckBox.IsChecked == true)
+                {
+                    uAutoSkillFive = Int32.Parse(autoSkillFiveTextBox.Text);
+                    bAutoSkillFive = true;
+
+                    new Thread(automaticSkillFive).Start();
+                }
+
+           
+                if (autoAttackCheckBox.IsChecked == true)
+                {
+                    uAutoAttack = Int32.Parse(autoAttackTextBox.Text);
+                    truAutoAttack = true;
+                    new Thread(verifyAttack).Start();
+                }
 
 
-            if (autoLootCheckBox.IsChecked == true)
-            {
-                uAutoLoot = Int32.Parse(autoLootTextBox.Text);
-                bAutoLoot = true;
-
-                new Thread(automaticLoot).Start();
-            }
-			
-			 if (autoSkillOneCheckBox.IsChecked == true)
-            {
-                uAutoSkillOne = Int32.Parse(autoSkillOneTextBox.Text);
-                bAutoSkillOne = true;
-
-                new Thread(automaticSkillOne).Start();
-            }
-
-            if (autoSkillTwoCheckBox.IsChecked == true)
-            {
-                uAutoSkillTwo = Int32.Parse(autoSkillTwoTextBox.Text);
-                bAutoSkillTwo = true;
-
-                new Thread(automaticSkillTwo).Start();
-            }
-
-            if (autoSkillThreeCheckBox.IsChecked == true)
-            {
-                uAutoSkillThree = Int32.Parse(autoSkillThreeTextBox.Text);
-                bAutoSkillThree = true;
-
-                new Thread(automaticSkillThree).Start();
-            }
-
-            if (autoSkillFourCheckBox.IsChecked == true)
-            {
-                uAutoSkillFour = Int32.Parse(autoSkillFourTextBox.Text);
-                bAutoSkillFour = true;
-
-                new Thread(automaticSkillFour).Start();
-            }
-
-            if (autoSkillFiveCheckBox.IsChecked == true)
-            {
-                uAutoSkillFive = Int32.Parse(autoSkillFiveTextBox.Text);
-                bAutoSkillFive = true;
-
-                new Thread(automaticSkillFive).Start();
-            }
+                if (autoLootCheckBox.IsChecked == true)
+                {
+                    uAutoLoot = Int32.Parse(autoLootTextBox.Text);
+                    truLoot = true;
+                    new Thread(verifyLoot).Start();
+                }
+                
+            
 
         }
 
