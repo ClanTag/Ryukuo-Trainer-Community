@@ -97,6 +97,7 @@ namespace Ryukuo_Trainer_Community.Windows
           while (truAutoAttack)
             {
                 Thread.Yield();
+                bAutoAttack = true;
                 new Thread(automaticAttack).Start();
                 Thread.Sleep(6000);
             }
@@ -109,6 +110,7 @@ namespace Ryukuo_Trainer_Community.Windows
             while (truLoot)
             {
                 Thread.Yield();
+                bAutoLoot = true;
                 new Thread(automaticLoot).Start();
                 Thread.Sleep(6000);
             }
@@ -293,6 +295,8 @@ namespace Ryukuo_Trainer_Community.Windows
 
         public void DisableHacks()
         {
+            truAutoAttack = false;
+            truLoot = false;
             bAutoAttack = false;
             bAutoLoot = false;
             bAutoSkillOne = false;
