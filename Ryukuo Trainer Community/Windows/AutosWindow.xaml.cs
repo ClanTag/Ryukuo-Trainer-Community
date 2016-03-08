@@ -15,9 +15,12 @@ limitations under the License.
 */
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Interop;
 
 
@@ -34,6 +37,10 @@ namespace Ryukuo_Trainer_Community.Windows
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+        }
+        private void backRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Hide();
         }
         private const int GWL_STYLE = -16;
         private const int WS_SYSMENU = 0x80000;
@@ -66,244 +73,206 @@ namespace Ryukuo_Trainer_Community.Windows
             PostMessage(hwnd, WM_KEYUP, key, lParam);
         }
 
-        private int delay = 150;
-        private bool bAutoAttack = false;
-        private bool truAutoAttack = false;
-        private int uAutoAttack = 250;
+        Stopwatch timeKey = new Stopwatch();
+        private List<byte> skillCheck = new List<byte>
+        {0x00,0x00,0x00,0x00,0x00,0x00};
+        private long[] skillDelay = new long[6];
+        private long[] timedSkill = new long[6];
+        private int[] goFlag = new int[6];
+        private bool plzStop = false;
         
+        private bool autoStart = false;
+        
+        private int skillCount = 0;
+
+        private int delay = 250;
+        private bool bAutoAttack = false;
+
+        private int uAutoAttack = 250;
+        private long timedAttack = 250;
+
         private bool bAutoLoot = false;
-        private bool truLoot = false;
         private int uAutoLoot = 50;
-
-		private bool bAutoSkillOne = false;
-        private int uAutoSkillOne = 170000;
-
-        private bool bAutoSkillTwo = false;
-        private int uAutoSkillTwo = 170000;
-
-        private bool bAutoSkillThree = false;
-        private int uAutoSkillThree = 170000;
-
-        private bool bAutoSkillFour = false;
-        private int uAutoSkillFour = 170000;
-
-        private bool bAutoSkillFive = false;
-        private int uAutoSkillFive = 170000;
+        private long timedLoot = 50;
 
 
 
-        private void verifyAttack()
+
+
+        private void autoGo()
         {
-          while (truAutoAttack)
+            while (autoStart == true)
             {
-                Thread.Yield();
-                bAutoAttack = true;
-                new Thread(automaticAttack).Start();
-                Thread.Sleep(6000);
+                foreach (byte id in skillCheck)
+                {
+                    if (id != 0x00)
+                    {
+                        skillCount++;
+                    }
+                }
+
+
+                if (skillCount != 0)
+                {
+                    skillCount = -1;
+                    foreach (byte id in skillCheck)
+                    {
+                        skillCount++;
+                        if (goFlag[skillCount] == 1)
+                        {
+                            OnKey(id);
+                            Thread.Sleep(delay);
+                            OnKey(id);
+                            Thread.Sleep(delay);
+                            OnKey(id);
+                            Thread.Sleep(600);
+                            goFlag[skillCount] = 0;
+                            
+                        }
+
+                        if (id != 0x00 && (timeKey.ElapsedMilliseconds - timedSkill[skillCount]) >= skillDelay[skillCount])
+                        {
+
+                            timedSkill[skillCount] = timeKey.ElapsedMilliseconds;
+                            goFlag[skillCount] = 1;
+                        }
+                        
+                    }
+
+                }
+                plzStop = false;
+
+                foreach (int flag in goFlag)
+                {
+                    if (goFlag[flag] == 0)
+                    {
+                        if (flag != 0)
+                        { plzStop = true; }
+                    }
+                    
+                }
+
+                if (plzStop == false) 
+                {
+                    if (bAutoAttack == true && (timeKey.ElapsedMilliseconds - timedAttack) >= uAutoAttack)
+                    {
+                        timedAttack = timeKey.ElapsedMilliseconds;
+                        OnKey(0x11); //VK_CONTROL
+                    }
+
+                    if (bAutoLoot == true && (timeKey.ElapsedMilliseconds - timedLoot) >= uAutoLoot)
+                    {
+                        timedLoot = timeKey.ElapsedMilliseconds;
+                        OnKey(0x60);
+                    }
+                }
+
+                if (timeKey.ElapsedMilliseconds >= 3372036854775807)
+                {
+                    timeKey.Restart();
+                }
             }
 
         }
 
-
-        private void verifyLoot()
-        {
-            while (truLoot)
-            {
-                Thread.Yield();
-                bAutoLoot = true;
-                new Thread(automaticLoot).Start();
-                Thread.Sleep(6000);
-            }
-
-        }
-        private void automaticAttack()
-        {
-            while (bAutoAttack)
-            {
-                OnKey(0x11); //VK_CONTROL
-                Thread.Sleep(uAutoAttack);
-            }
-        }
-
-        private void automaticLoot()
-        {
-            while (bAutoLoot)
-            {
-                OnKey(0x60); //VK_NUMPAD0
-                Thread.Sleep(uAutoLoot);
-            }
-        }
-		
-		  private void automaticSkillOne()
-        {
-            while (bAutoSkillOne)
-            {
-
-                bAutoAttack = false;
-                bAutoLoot = false;
-                Thread.Sleep(1234);
-                OnKey(0x31); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x31); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x31); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x31); //VK_one
-                bAutoAttack = true;
-               Thread.Sleep(uAutoSkillOne);
-                
-            }
-        }
-
-        private void automaticSkillTwo()
-        {
-            while (bAutoSkillTwo)
-            {
-                bAutoAttack = false;
-                bAutoLoot = false;
-                Thread.Sleep(2234);
-                OnKey(0x32); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x32); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x32); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x32); //VK_one
-                bAutoAttack = true;
-                Thread.Sleep(uAutoSkillTwo);
-            }
-        }
-
-        private void automaticSkillThree()
-        {
-            while (bAutoSkillThree)
-            {
-                bAutoAttack = false;
-                bAutoLoot = false;
-                Thread.Sleep(3234);
-                OnKey(0x33); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x33); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x33); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x33); //VK_one
-                Thread.Sleep(uAutoSkillThree);
-            }
-        }
-
-        private void automaticSkillFour()
-        {
-            while (bAutoSkillFour)
-            {
-                bAutoAttack = (false);
-                bAutoLoot = false;
-                Thread.Sleep(4234);
-                OnKey(0x34); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x34); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x34); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x34); //VK_one
-                bAutoAttack = (true);
-                Thread.Sleep(uAutoSkillFour);
-            }
-        }
-
-        private void automaticSkillFive()
-        {
-            while (bAutoSkillFive)
-            {
-                bAutoAttack = false;
-                bAutoLoot = false;
-                Thread.Sleep(5234);
-                OnKey(0x35); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x35); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x35); //VK_one
-                Thread.Sleep(delay);
-                OnKey(0x35); //VK_one
-                Thread.Sleep(uAutoSkillFive);
-            }
-        }
         public void EnableHacks()
         {
 
-                            
-                if (autoSkillOneCheckBox.IsChecked == true)
-                {
-                    uAutoSkillOne = Int32.Parse(autoSkillOneTextBox.Text);
-                    bAutoSkillOne = true;
+           
+                skillCheck[0] = 0x00;
+                skillCheck[1] = 0x00;
+                skillCheck[2] = 0x00;
+                skillCheck[3] = 0x00;
+                skillCheck[4] = 0x00;
+                skillCheck[5] = 0x00;
+            
 
-                    new Thread(automaticSkillOne).Start();
+            if (autoSkillOneCheckBox.IsChecked == true)
+                {
+                    
+                    skillCheck[1] = 0x31;
+                    skillDelay[1] = Int32.Parse(autoSkillOneTextBox.Text);
+                    goFlag[1] = 1;
+              
                 }
 
                 if (autoSkillTwoCheckBox.IsChecked == true)
                 {
-                    uAutoSkillTwo = Int32.Parse(autoSkillTwoTextBox.Text);
-                    bAutoSkillTwo = true;
-
-                    new Thread(automaticSkillTwo).Start();
+                    
+                    skillCheck[2] = 0x32;
+                    skillDelay[2] = Int32.Parse(autoSkillTwoTextBox.Text);
+                    goFlag[2] = 1;
                 }
 
                 if (autoSkillThreeCheckBox.IsChecked == true)
                 {
-                    uAutoSkillThree = Int32.Parse(autoSkillThreeTextBox.Text);
-                    bAutoSkillThree = true;
-
-                    new Thread(automaticSkillThree).Start();
+                 
+                    skillCheck[3] = 0x33;
+                    skillDelay[3] = Int32.Parse(autoSkillThreeTextBox.Text);
+                    goFlag[3] = 1;
                 }
 
                 if (autoSkillFourCheckBox.IsChecked == true)
                 {
-                    uAutoSkillFour = Int32.Parse(autoSkillFourTextBox.Text);
-                    bAutoSkillFour = true;
-
-                    new Thread(automaticSkillFour).Start();
+                   
+                    skillCheck[4] = 0x34;
+                    skillDelay[4] = Int32.Parse(autoSkillFourTextBox.Text);
+                goFlag[4] = 1;
                 }
 
-                if (autoSkillFiveCheckBox.IsChecked == true)
+            if (autoSkillFiveCheckBox.IsChecked == true)
                 {
-                    uAutoSkillFive = Int32.Parse(autoSkillFiveTextBox.Text);
-                    bAutoSkillFive = true;
-
-                    new Thread(automaticSkillFive).Start();
+                    
+                    skillCheck[5] = 0x35;
+                    skillDelay[5] = Int32.Parse(autoSkillFiveTextBox.Text);
+                goFlag[5] = 1;
                 }
 
-           
-                if (autoAttackCheckBox.IsChecked == true)
+
+            if (autoAttackCheckBox.IsChecked == true)
                 {
                     uAutoAttack = Int32.Parse(autoAttackTextBox.Text);
-                    truAutoAttack = true;
-                    new Thread(verifyAttack).Start();
+                    bAutoAttack = true;
                 }
 
 
                 if (autoLootCheckBox.IsChecked == true)
                 {
                     uAutoLoot = Int32.Parse(autoLootTextBox.Text);
-                    truLoot = true;
-                    new Thread(verifyLoot).Start();
-                }
-                
+                    bAutoLoot = true;
+                                    }
             
+            goFlag[0] = 0;
+            timedSkill[0] = 300000;
+            skillDelay[0] = 300000;
+            autoStart = true;
+            timeKey.Start();
+            new Thread(autoGo).Start();
+
+
 
         }
 
 
         public void DisableHacks()
         {
-            truAutoAttack = false;
-            truLoot = false;
+            autoStart = false;
+            timeKey.Reset();
             bAutoAttack = false;
             bAutoLoot = false;
-            bAutoSkillOne = false;
-            bAutoSkillTwo = false;
-            bAutoSkillThree = false;
-            bAutoSkillFour = false;
-            bAutoSkillFive = false;
+            foreach (int flag in goFlag)
+            {
+                goFlag[flag] = 0;
+            }
+            
+            skillCount = 0;
+            skillCheck[0] = 0x00;
+            skillCheck[1] = 0x00;
+            skillCheck[2] = 0x00;
+            skillCheck[3] = 0x00;
+            skillCheck[4] = 0x00;
+            skillCheck[5] = 0x00;
+
         }
 
     }
