@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:Ryukuo_Trainer_Community"
         x:Name="mainWindow" x:Class="Ryukuo_Trainer_Community.MainWindow"
         mc:Ignorable="d"
-        Title="Ryukuo Trainer Community" Height="700" Width="425" Background="#FF1E1E1E" Foreground="White" Closing="mainWindow_Closing" LocationChanged="mainWindow_LocationChanged" ResizeMode="CanMinimize">
+        Title="Ryukuo Trainer Community" Height="413.115" Width="432.172" Background="#FF1E1E1E" Foreground="White" Closing="mainWindow_Closing" LocationChanged="mainWindow_LocationChanged" ResizeMode="CanMinimize">
     <Grid>
 
-        <GroupBox HorizontalAlignment="Left" Margin="10,436,0,0" VerticalAlignment="Top" Height="215" Width="330" BorderThickness="0.5" Header="hacks">
+        <GroupBox HorizontalAlignment="Left" Margin="11,151,0,0" VerticalAlignment="Top" Height="215" Width="330" BorderThickness="0.5" Header="hacks">
             <Grid>
                 <CheckBox x:Name="godmodeCheckBox" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Checked="godmodeCheckBox_Checked" Unchecked="godmodeCheckBox_Unchecked" Foreground="White" Background="White"/>
                 <Rectangle x:Name="godmodeWindowRectangle" HorizontalAlignment="Left" Height="50" Margin="30,10,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="godmodeWindowRectangle_MouseLeftButtonDown">
@@ -54,23 +54,23 @@
 
             </Grid>
         </GroupBox>
-        <Rectangle HorizontalAlignment="Left" Height="50" Margin="358,436,0,0" VerticalAlignment="Top" Width="50">
+        <Rectangle HorizontalAlignment="Left" Height="50" Margin="359,151,0,0" VerticalAlignment="Top" Width="50">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="pack://application:,,,/icons/folder-icon.png" />
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle HorizontalAlignment="Left" Height="50" Margin="358,493,0,0" VerticalAlignment="Top" Width="50">
+        <Rectangle HorizontalAlignment="Left" Height="50" Margin="359,208,0,0" VerticalAlignment="Top" Width="50">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="pack://application:,,,/icons/folder-2-icon.png" />
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle HorizontalAlignment="Left" Height="50" Margin="358,549,0,0" VerticalAlignment="Top" Width="50">
+        <Rectangle HorizontalAlignment="Left" Height="50" Margin="359,264,0,0" VerticalAlignment="Top" Width="50">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="pack://application:,,,/icons/games-folder-icon.png" />
             </Rectangle.Fill>
         </Rectangle>
 
-        <Rectangle HorizontalAlignment="Left" Height="50" Margin="358,611,0,0" VerticalAlignment="Top" Width="50">
+        <Rectangle HorizontalAlignment="Left" Height="50" Margin="359,326,0,0" VerticalAlignment="Top" Width="50">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="pack://application:,,,/icons/terminal-icon.png" />
             </Rectangle.Fill>

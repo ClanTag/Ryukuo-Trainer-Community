@@ -72,7 +72,7 @@ namespace Ryukuo_Trainer_Community
         private void EnableInitialScripts()
         {
             EnableScript("viewswears");
-            EnableScript("randomhwid");
+            //EnableScript("randomhwid");
             EnableScript("unlimitedattack");
             EnableScript("skipaircheck");
             EnableScript("aircheckattackonrope");
@@ -180,8 +180,8 @@ namespace Ryukuo_Trainer_Community
         private void godmodeWindowRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
-            godmodeWindow.Left = Application.Current.MainWindow.Left - godmodeWindow.Width;
-            godmodeWindow.Top = Application.Current.MainWindow.Top;
+            godmodeWindow.Left = Application.Current.MainWindow.Left;
+            godmodeWindow.Top = Application.Current.MainWindow.Top + godmodeWindow.Height;
             godmodeWindow.Visibility = (godmodeWindow.IsVisible) ? Visibility.Hidden : Visibility.Visible;
         }
 
@@ -203,20 +203,21 @@ namespace Ryukuo_Trainer_Community
             mobcontrolWindow.Top = Application.Current.MainWindow.Top;
             performanceWindow.Left = Application.Current.MainWindow.Left + mainWindow.Width;
             performanceWindow.Top = Application.Current.MainWindow.Top + mainWindow.Height - performanceWindow.Height;
-
+            characterWindow.Top = Application.Current.MainWindow.Top + mainWindow.Height - characterWindow.Height;
+            characterWindow.Left = Application.Current.MainWindow.Left - mainWindow.Width;
         }
 
         private void autosRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            autoWindow.Left = Application.Current.MainWindow.Left - autoWindow.Width;
+            autoWindow.Left = Application.Current.MainWindow.Left;
             autoWindow.Top = Application.Current.MainWindow.Top + godmodeWindow.Height;
             autoWindow.Visibility = (autoWindow.IsVisible) ? Visibility.Hidden : Visibility.Visible;
         }
 
         private void mobControlRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            mobcontrolWindow.Left = Application.Current.MainWindow.Left - mobcontrolWindow.Width;
-            mobcontrolWindow.Top = Application.Current.MainWindow.Top;
+            mobcontrolWindow.Left = Application.Current.MainWindow.Left;
+            mobcontrolWindow.Top = Application.Current.MainWindow.Top + godmodeWindow.Height;
             mobcontrolWindow.Visibility = (mobcontrolWindow.IsVisible) ? Visibility.Hidden : Visibility.Visible;
         }
 
@@ -232,8 +233,8 @@ namespace Ryukuo_Trainer_Community
 
         private void performanceWindowRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            performanceWindow.Left = Application.Current.MainWindow.Left + mainWindow.Width;
-            performanceWindow.Top = Application.Current.MainWindow.Top + mainWindow.Height - performanceWindow.Height;
+            performanceWindow.Left = Application.Current.MainWindow.Left;
+            performanceWindow.Top = Application.Current.MainWindow.Top + godmodeWindow.Height;
             performanceWindow.Visibility = (performanceWindow.IsVisible) ? Visibility.Hidden : Visibility.Visible;
         }
 
@@ -250,8 +251,8 @@ namespace Ryukuo_Trainer_Community
 
         private void characterWindowRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            characterWindow.Left = Application.Current.MainWindow.Left - characterWindow.Width;
-            characterWindow.Top = Application.Current.MainWindow.Top +mainWindow.Height -characterWindow.Height;
+            characterWindow.Left = Application.Current.MainWindow.Left;
+            characterWindow.Top = Application.Current.MainWindow.Top + godmodeWindow.Height;
             characterWindow.Visibility = (characterWindow.IsVisible) ? Visibility.Hidden : Visibility.Visible;
         }
 
@@ -265,7 +266,7 @@ namespace Ryukuo_Trainer_Community
             characterWindow.DisableHacks();
         }
 
-        private void autosCheckBox_Checked(object sender, RoutedEventArgs e)
+        public void autosCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             autoWindow.EnableHacks();
         }
